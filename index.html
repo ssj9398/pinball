@@ -15,6 +15,7 @@
             margin: 0;
             background: white;
             color: black;
+            overflow: hidden;
         }
 
         .game-container {
@@ -23,12 +24,27 @@
             max-width: 600px;
             height: 80vh;
             max-height: 800px;
-            background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpQg67ximBlOxniDp7vre2VqDezGop2nxSWA&s') no-repeat center center;
+            background: url('https://img.pikbest.com/illustration/20240918/night-scene-with-a-large-christmas-tree-and-house-illustration_10856444.jpg!w700wp') no-repeat center center;
             background-size: cover;
             border: 5px solid #333;
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: white;
+            font-size: 12px;
+            pointer-events: none;
+            animation: fall 5s linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh);
+            }
         }
 
         .ball {
@@ -172,6 +188,19 @@
 
         let score = 0;
 
+        // Create snowflakes
+        function createSnowflakes() {
+            for (let i = 0; i < 50; i++) {
+                const snowflake = document.createElement("div");
+                snowflake.className = "snowflake";
+                snowflake.textContent = "❄";
+                snowflake.style.left = Math.random() * 100 + "vw";
+                snowflake.style.animationDelay = Math.random() * 5 + "s";
+                snowflake.style.fontSize = Math.random() * 10 + 10 + "px";
+                gameContainer.appendChild(snowflake);
+            }
+        }
+
         // Generate pegs above the result area
         function generatePegs() {
             const totalPegs = 20;
@@ -262,6 +291,7 @@
         });
 
         // Initialize game area
+        createSnowflakes();
         generatePegs();
     </script>
 </body>
